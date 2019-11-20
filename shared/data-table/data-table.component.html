@@ -1,0 +1,71 @@
+<div *ngIf="!isMobile; else mobile"
+    class="ngx-data-table__card">
+    <div class="ngx-data-table">
+        <data-table-header
+                [rowIdProp]="rowIdProp"
+                [isLoading]="isLoading"
+                [columns]="columns"
+                [currentSort]="currentSort"
+                [rows]="rows"
+                [showCheckboxes]="showCheckboxes"
+                [selectedItems]="selectedItems"
+                [allCustomerIds]="allCustomerIds"
+                [canSelectAll]="canSelectAll"
+                [disableIndividualRowAttribute]="disableIndividualRowAttribute"
+                (onSortChange)="sortChange($event)"
+                (onSelectAllOnPage)="onSelectAllOnPage($event)"
+                (onSelectAllCustomers)="onSelectAllCustomers($event)">
+        </data-table-header>
+
+        <data-table-body
+                [rowIdProp]="rowIdProp"
+                [rows]="rows"
+                [columns]="columns"
+                [isLoading]="isLoading"
+                [isDetailView]="isDetailView"
+                [actionableErrorText]="actionableErrorText"
+                [showCheckboxes]="showCheckboxes"
+                [noResultsMessage]="noResultsMessage"
+                [detailProp]="detailProp"
+                [detailColumns]="detailColumns"
+                [disableIndividualRowAttribute]="disableIndividualRowAttribute"
+                (onRowClick)="rowClicked($event)"
+                (onCheckboxClick)="rowSelected($event)"
+                (errorTextClick)="errorTextClicked()"
+                (onButtonClick)="buttonClicked($event)"
+                (onExternalLinkClick)="externalLinkClicked($event)"
+                (onDeleteClick)="deleteClicked($event)">
+        </data-table-body>
+
+        <data-table-footer
+            *ngIf="showFooter"
+            (onPageSizeChange)="pageSizeChange($event)"
+            (onPageChange)="pageChange($event)"
+            [totalElements]="totalElements"
+            [pageSizeOptions]="pageSizeOptions"
+            [pageSize]="pageSize"
+            [currentPage]="currentPage"
+            [numberOfPages]="numberOfPages"
+            [isMobile]="isMobile">
+        </data-table-footer>
+    </div>
+</div>
+<ng-template #mobile>
+    <mobile-data-table
+        [columns]="columns"
+        [rows]="rows"
+        [noResultsMessage]="noResultsMessage"
+        [currentPage]="currentPage"
+        [totalElements]="totalElements"
+        [numberOfPages]="numberOfPages"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageSize]="pageSize"
+        [showFooter]="showFooter"
+        [mobileDeleteEnabled]="mobileDeleteEnabled"
+        [useMembershipAsIcon]="useMembershipAsIcon"
+        [loading]="isLoading"
+        (onPageChange)="pageChange($event)"
+        (onRowClick)="rowClicked($event)"
+        (onDeleteClick)="deleteClicked($event)">
+    </mobile-data-table>
+</ng-template>

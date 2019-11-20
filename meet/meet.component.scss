@@ -1,0 +1,81 @@
+@import '../../styles/_variables.scss';
+
+.meet {
+  mat-form-field label, mat-form-field .mat-placeholder {
+    bottom: inherit !important;
+    transform-origin: 0 34px !important;
+    transform: initial !important;
+  }
+
+  &__container {
+    padding: 12px;
+    margin: 15px 8px;
+  }
+
+  &__search {
+    width: 230px;
+    margin: 0;
+    font-size: 16px;
+
+    &-icon {
+      font-size: 24px !important;
+      color: $cfaDarkGray;
+    }
+  }
+
+  &__search input {
+    color: black;
+  }
+
+  &__view-select {
+    margin: 0;
+    width: 175px;
+  }
+
+  &__view-icon {
+    color: $cfaDarkGray;
+    min-width: 20px;
+    min-height: 20px;
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+    margin-right: 3px;
+    position: relative;
+  }
+
+  &__heading {
+    color: $cfaErrorRed;
+    font-size: 22px;
+  }
+
+  &__filter-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 60px;
+    z-index: 500;
+    background-color: $cfaPrimary !important;
+    
+    mat-icon {
+      vertical-align: baseline;
+      color: $cfaWhite;
+    }
+
+    &-sel {
+      background-color: $cfaErrorRed !important;
+    }
+
+    &-disabled {
+      background-color: rgba(0, 0, 0, 0.12) !important;
+    }
+  }
+
+  &__disclaimer {
+    text-align: right;
+    color: $cfaDarkGray;
+    font-style: italic;
+  }
+
+  &__disabled {
+    cursor: not-allowed;
+  }
+}

@@ -1,0 +1,148 @@
+@import '../../../styles/_variables.scss';
+
+// TODO add to variables.scss
+//$cfa-secondary-font-family: "Franklin Gothic Book", serif;
+$data-table-arrow-size: 18px;
+
+.ngx-data-table {
+  font-size: 1.07em;
+  font-family: $cfaPrimaryFont;
+  margin: 0 -6px 0 -6px !important;
+
+  &__card {
+    margin: 0;
+  }
+
+  &__checkbox {
+    margin-bottom: -4px;
+  }
+
+  .mat-checkbox.checkbox-header .mat-checkbox-frame {
+    border-color: $cfaWhite;
+    border-width: thin;
+  }
+
+  .mat-checkbox-checked.checkbox-header .mat-checkbox-background {
+    background-color: $cfaWhite;
+  }
+
+  .mat-checkbox-checked.checkbox-header .mat-checkbox-checkmark-path {
+    stroke: $cfaPrimary !important;
+  }
+
+  &__progress-bar {
+    margin-top: -4px;
+    height: 4px;
+    width: 100%;
+  }
+
+  &__select-all-message {
+    background-color: #fafad2;
+    height: 32px;
+    font-size: 15px;
+    color: black;
+  }
+
+  &__select-all-message-clickable {
+    color: $cfaErrorRed !important;
+    margin-left: 8px;
+  }
+
+  &__select-all-message-clickable:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  &__header {
+    padding: 8px 5px;
+    background-color: $cfaPrimary;
+    color: $cfaWhite;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+    font-weight: 400;
+    z-index: 100;
+    font-family: $cfaPrimaryFont;
+  }
+
+  &__header-title {
+    cursor: pointer;
+  }
+
+  &__icon {
+    margin-left: -28px;
+  }
+
+  &__arrow {
+    width: $data-table-arrow-size;
+    height: $data-table-arrow-size;
+    min-width: $data-table-arrow-size;
+    min-height: $data-table-arrow-size;
+    font-size: $data-table-arrow-size;
+    color: $cfaWhite;
+    margin: 0 0 0 2px;
+  }
+
+  &__pagination-dropdown {
+    width: 50px;
+    min-width: 40px;
+    margin: 0 10px;
+  }
+
+  &__pagination-dropdown .mat-select-trigger {
+    min-width: 40px;
+  }
+
+  &__detail-header {
+    background-color: $cfaLightGray;
+  }
+
+  &__row {
+    padding: 8px 5px;
+    border-bottom: 1px solid $cfaGray;
+
+    &:hover {
+      background-color: $cfaLightGray;
+    }
+  }
+
+  &__mobile-footer {
+    justify-content: center !important;
+  }
+
+  &__failed-text {
+    font-style: italic;
+    color: $cfaErrorRed;
+  }
+
+  &__warning-block {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  &__warning-block > span {
+    text-decoration: underline;
+
+    &:hover {
+      color: $cfaPrimary;
+      cursor: pointer;
+    }
+  }
+
+  &__delete-icon {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__button {
+    line-height: 25px;
+    background-color: $cfaPrimary;
+    color: white;
+    font-size: 14px;
+    padding: 0 8px;
+    min-width: 80%;
+  }
+
+  &__link {
+    cursor: pointer;
+  }
+}

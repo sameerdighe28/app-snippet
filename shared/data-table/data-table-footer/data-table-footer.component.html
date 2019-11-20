@@ -1,0 +1,35 @@
+<div class="flex-container ngx-data-table__footer"
+     fxLayout="row">
+    <div class="flex-item"
+         fxFlex
+         fxLayoutAlign="end center"
+         [ngClass]="{'ngx-data-table__mobile-footer': (isMobile || hidePageOptions())}">
+        <span *ngIf="!isMobile && !hidePageOptions()" fxLayoutAlign="end center">
+            <span>Page</span>
+            <mat-select class="ngx-data-table__pagination-dropdown"
+                        [(ngModel)]="currentPage"
+                        (onClose)="changeCurrentPage(currentPage)">
+                <mat-option *ngFor="let page of pageNumberArr; let i = index"
+                            [value]="i">
+                    {{page}}
+                </mat-option>
+            </mat-select>
+            <span>Rows per page:</span>
+            <mat-select class="ngx-data-table__pagination-dropdown"
+                        [(ngModel)]="pageSize"
+                        (onClose)="pageSizeChange(pageSize)">
+                <mat-option *ngFor="let size of pageSizeOptions"
+                            [value]="size">
+                    {{size}}
+                </mat-option>
+            </mat-select>
+        </span>
+        <pagination *ngIf="totalElements > 0"
+                    [totalElements]="totalElements"
+                    [pageSize]="pageSize"
+                    [currentPage]="currentPage"
+                    (pageRight)="pageRight()"
+                    (pageLeft)="pageLeft()">
+        </pagination>
+    </div>
+</div>

@@ -1,0 +1,150 @@
+<span [ngSwitch]="col.icon" class="ngx-data-table__icon" *ngIf="getIcon()">
+    <ng-container *ngSwitchCase="'inactive'">
+        <mat-icon title="Inactive Customer">person_outline</mat-icon>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'caresProspect'">
+        <mat-icon title="CARES Prospect">face</mat-icon>
+    </ng-container>
+</span>
+<span [ngSwitch]="col.type"
+      [ngClass]="{'mobile-data-table__title': (isMobile && col.mobile === 'title'),
+                  'mobile-data-table__subtext': (isMobile && col.mobile === 'subtext')}">
+
+    <ng-container *ngSwitchCase="'MonthDay'">{{formatDate(getData()) | date:'M/d'}}</ng-container>
+    <ng-container *ngSwitchCase="'UTCLongMonthDay'">{{formatUTCDate(getData(), 'UTCLongMonthDay')}}</ng-container>
+    <ng-container *ngSwitchCase="'UTCDate'">{{formatUTCDate(getData(), 'UTCDate')}}</ng-container>
+    <ng-container *ngSwitchCase="'Date'">{{formatDate(getData()) | date:'M/d/y'}}</ng-container>
+    <ng-container *ngSwitchCase="'DayDate'">{{formatDate(getData()) | date:'EEE M/d/y'}}</ng-container>
+    <ng-container *ngSwitchCase="'DateTime'">{{formatDate(getData()) | date:'M/d/yy h:mm a'}}</ng-container>
+    <ng-container *ngSwitchCase="'DayDateTime'">
+        {{formatDate(getData()) | date:'EEE M/d/yy h:mm a'}}
+    </ng-container>
+    <ng-container *ngSwitchCase="'number'">
+        {{getNumber()}}
+    </ng-container>
+    <ng-container *ngSwitchCase="'currency'">
+        {{getNumber() | currency:'USD':true:'1.2-2'}}
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'percentage'">
+        {{getNumber() | percent: '1.2-2'}}
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'roundedPercentage'">
+        {{getNumber() | percent: '1.0-0'}}
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'truncate'">
+        {{getData() | myTruncate: col.truncateLength}}
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'html'">
+        <div [innerHTML]="getData()"></div>
+    </ng-container>
+
+    <div *ngSwitchCase="'Status'" [ngClass]="getData() === 'Failed' ? 'ngx-data-table__failed-text' : ''">
+        {{getData()}}
+    </div>
+
+    <ng-container *ngSwitchCase="'address'">
+        <div *ngIf="getData()">
+            {{getData().streetAddress}}
+            <br>
+            <span *ngIf="hasSecondStreetAddress(getData().streetAddress2)">
+                {{getData().streetAddress2}}
+                <br>
+            </span>
+            {{getData().locality}}, {{getData().region}}, {{getData().postalCode}}
+        </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'membership'">
+        <member-status [membership]="getData()" [displayCfaOne]="getDisplayCfaOne()"></member-status>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'indicateComments'">
+        <ng-container *ngIf="! isMobile; else templateMobile">
+            <mat-icon
+                *ngIf="trimData()"
+                title="Comment Available">
+                mode_comment
+            </mat-icon>
+        </ng-container>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'visitDate'">
+        <span *ngIf="isMobile; else templateDefault" class="mobile-data-table__subtitle">
+            {{col.title}}: {{getData() || 'N/A'}}
+        </span>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'visitDateTime'">
+        <span *ngIf="isMobile" class="mobile-data-table__subtitle">
+            {{col.title}}: {{formatDate(getData()) | date:'M/d/yy h:mm a'}}
+        </span>
+        <span *ngIf="!isMobile" class="mobile-data-table__subtitle">
+            {{formatDate(getData()) | date:'M/d/yy h:mm a'}}
+        </span>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'reportReceivedDate'">
+        <span *ngIf="isMobile" class="mobile-data-table__subtitle">
+            {{col.mobileTitle}}: {{formatDate(getData()) | date:'EEE M/d/yy h:mm a'}}
+        </span>
+        <span *ngIf="!isMobile" class="mobile-data-table__subtitle">
+            {{formatDate(getData()) | date:'M/d/yy h:mm a'}}
+        </span>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'delete'">
+        <mat-icon class="ngx-data-table__delete-icon" (click)="$event.stopPropagation(); deleteClicked()">
+            delete
+        </mat-icon>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'remove'">
+        <mat-icon class="ngx-data-table__delete-icon" (click)="$event.stopPropagation(); deleteClicked()">
+            clear
+        </mat-icon>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'button'">
+        <button mat-raised-button class="ngx-data-table__button" (click)="$event.stopPropagation(); buttonClicked()">
+            {{getText()}}
+        </button>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'externalLink'">
+        <a class="ngx-data-table__link" (click)="$event.stopPropagation(); externalLinkClicked()">{{getText()}}</a>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'conditionalExternalLink'">
+        <a class="ngx-data-table__link"
+           *ngIf="getData()"
+           (click)="$event.stopPropagation(); externalLinkClicked()">
+            {{getText()}}
+        </a>
+        <div *ngIf="!getData()">N/A</div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'defaultNA'">
+        <span *ngIf="getData()">
+            {{getData()}}
+        </span>
+        <span *ngIf="!getData()">N/A</span>
+    </ng-container>
+
+    <ng-container *ngSwitchDefault>
+        <ng-container *ngIf="isMobile; then templateMobile; else templateDefault;">
+        </ng-container>
+    </ng-container>
+
+    <ng-template #templateMobile>
+        <span class="truncated">{{getData() | myTruncate: 40}}</span>
+    </ng-template>
+
+    <ng-template #templateDefault>
+        {{getData()}}
+    </ng-template>
+</span>

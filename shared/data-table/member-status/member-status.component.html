@@ -1,0 +1,22 @@
+<div>
+    <img alt="silver"
+         [ngClass]="isMobile ? 'member-status__mobile-icon' : 'member-status__icon'"
+         *ngIf="membership.silver"
+         title="Silver status"
+         src="../../../../assets/img/silver_tier.svg"/>
+    <img alt="red"
+         [ngClass]="isMobile ? 'member-status__mobile-icon' : 'member-status__icon'"
+         *ngIf="membership.red"
+         title="Red status"
+         src="../../../../assets/img/red_tier.svg"/>
+    <img alt="cfa one"
+         [ngClass]="isMobile ? 'member-status__mobile-icon' : 'member-status__icon'"
+         *ngIf="membership.justCfaOne && displayCfaOne"
+         title="CFA One status"
+         src="../../../../assets/img/cfa-one-icon.svg"/>
+    <img alt="prospect"
+         [ngClass]="isMobile ? 'member-status__mobile-icon' : 'member-status__icon'"
+         *ngIf="membership.prospect"
+         title="Prospect Status"
+         src="../../../../assets/img/non-cfa-one-member.svg"/>
+</div>

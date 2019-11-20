@@ -1,0 +1,45 @@
+<mat-progress-spinner *ngIf="loading"
+                      class="mobile-data-table__spinner"
+                      mode="indeterminate"
+                      color="accent">
+</mat-progress-spinner>
+<div class="flex-container"
+     fxLayout="row"
+     fxLayoutAlign="center center"
+     *ngIf="!isDataAvailable() && !loading">
+    <data-table-error [errorText]="noResultsMessage"
+                      [actionableText] = "actionableErrorText"
+                      (textClick)="onErrorTextClick.emit()">
+    </data-table-error>
+</div>
+<mat-nav-list *ngIf="isDataAvailable() && !loading">
+    <mat-list-item *ngFor="let row of rows"
+                   (click)="rowClicked(row)"
+                   fxLayout="row"
+                   fxLayoutAlign="center center"
+                   class="mobile-data-table__list-item">
+        <div *ngIf="mobileDeleteEnabled" fxFlex="15">
+            <mat-icon (click)="$event.stopPropagation(); deleteClicked(row)">delete</mat-icon>
+        </div>
+        <div *ngIf="useMembershipAsIcon" fxFlex="12">
+            <member-status [membership]="getMembership(row)"
+                           [displayCfaOne]="displayCfaOne"
+                           [isMobile]="true">
+            </member-status>
+        </div>
+        <div fxFlex>
+            <div matLine *ngFor="let col of mobileColumns">
+                <data-table-cell [row]="row" [col]="col" [isMobile]="true"></data-table-cell>
+            </div>
+        </div>
+        <mat-icon class="mobile-data-table__chevron" fxFlex >keyboard_arrow_right</mat-icon>
+    </mat-list-item>
+</mat-nav-list>
+<data-table-footer *ngIf="showFooter && !loading"
+                   (onPageChange)="changeCurrentPage($event)"
+                   [totalElements]="totalElements"
+                   [pageSize]="pageSize"
+                   [currentPage]="currentPage"
+                   [numberOfPages]="numberOfPages"
+                   [isMobile]="true">
+</data-table-footer>

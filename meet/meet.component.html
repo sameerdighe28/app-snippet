@@ -1,0 +1,42 @@
+
+<mat-card class="meet__container" *ngIf="!(customersError$ | async)">
+    <!--TODO remove this when date range picker is upgraded-->
+    <div #element></div>
+    <!-- Navigation -->
+    <!--TODO move this to a component-->
+    
+    <filter-chips
+        [filters]="selectedFilters$ | async"
+        [savedFilters]="selectedSavedFilters$ | async"
+        [isHave]="isHave$ | async"
+        [transactionRange]="transactionRange$ | async"
+        (removeFilter)="toggleFilter($event)"
+        (clearAllFilters)="clearFilters()">
+    </filter-chips>
+
+    <!-- Data Table Display -->
+    <data-table
+        [columns]="tableColumns$ | async"
+        [rows]="customers$ | async"
+        [isLoading]="loading$ | async"
+        [currentSort]="currentSort$ | async"
+        [totalElements]="totalElements$ | async"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageSize]="pageSize$ | async"
+        [currentPage]="currentPage$ | async"
+        [numberOfPages]="numberOfPages$ | async"
+        [allCustomerIds]="allCustomerIds$ | async"
+        [noResultsMessage]="currentNoResultsMessage"
+        [isMobile] = "isMobile$ | async"
+        [view]="selectedView$ | async"
+        [disableSelect]="isFeedbackView$ | async"
+        [canSelectAll]="true"
+        (onPageSizeChange)="onPageSizeChange($event)"
+        (onPageChange)="onPageChange($event)"
+        (onSortChange)="onSort($event)"
+        (onSelection)="onSelection($event)"
+        (onRowClick)="openCustomerProfile($event)">
+    </data-table>
+
+    
+</mat-card>

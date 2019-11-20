@@ -1,0 +1,85 @@
+<div class="flex-container"
+     fxLayout="row"
+     fxLayoutAlign="center center"
+     *ngIf="!isDataAvailable() && !isLoading">
+    <data-table-error [errorText]="noResultsMessage"
+                      [actionableText]="actionableErrorText"
+                      (textClick)="errorTextClicked()">
+    </data-table-error>
+</div>
+<div *ngIf="isDataAvailable()">
+    <div class="flex-container ngx-data-table__row"
+         fxLayout="row"
+         fxLayoutWrap
+         *ngFor="let row of rows">
+        <div fxLayout="row" fxFlex="100">
+            <div class="flex-item"
+                 [fxFlex]="getFlex()">
+                <div *ngIf="showCheckboxes || isDetailView">
+                    <mat-checkbox
+                        [(ngModel)]="row.state"
+                        *ngIf="showCheckboxes && !isDetailView"
+                        (change)="checkboxClick(row)"
+                        [disabled]="shouldDisableRow(row)"
+                        class="ngx-data-table__checkbox">
+                    </mat-checkbox>
+                    <mat-icon
+                        *ngIf="isDetailView && !row.open"
+                        (click)="openDetail(row)">
+                        keyboard_arrow_right
+                    </mat-icon>
+                    <mat-icon
+                        *ngIf="isDetailView && row.open"
+                        (click)="openDetail(row)">
+                        keyboard_arrow_down
+                    </mat-icon>
+                </div>
+            </div>
+            <ng-container *ngFor="let col of columns">
+                <span *ngIf="!col.hide"
+                      (click)="rowClicked(row)"
+                      class="flex-item"
+                      [fxFlex]="col.size">
+                    <data-table-cell
+                        [row]="row"
+                        [col]="col"
+                        (onButtonClick)="buttonClicked(row, col.id)"
+                        (onExternalLinkClick)="externalLinkClicked(row)"
+                        (onDeleteClick)="deleteClicked(row)">
+                    </data-table-cell>
+                </span>
+            </ng-container>
+        </div>
+
+        <div *ngIf="isDetailView && row.open"
+             fxLayout="row"
+             fxFlex="100"
+             fxLayoutWrap>
+            <div fxLayout="row"
+                 fxFlex="100"
+                 class="ngx-data-table__detail-header">
+                <div fxFlex="55px"></div>
+                <div fxFlex></div>
+                <div fxFlex *ngFor="let detRowCol of detailColumns">
+                    {{detRowCol.title}}
+                </div>
+            </div>
+            <div fxLayout="row"
+                 fxFlex="100"
+                 *ngFor="let detRow of row[detailProp]">
+                <div fxFlex="55px"></div>
+                <div fxFlex></div>
+                <div fxFlex
+                     *ngFor="let detCol of detailColumns">
+                    <data-table-cell
+                        [row]="detRow"
+                        [col]="detCol"
+                        (onButtonClick)="buttonClicked(row)"
+                        (onExternalLinkClick)="externalLinkClicked(row)"
+                        (onDeleteClick)="deleteClicked(row)">
+                    </data-table-cell>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

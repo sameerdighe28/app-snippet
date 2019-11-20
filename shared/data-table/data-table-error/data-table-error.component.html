@@ -1,0 +1,6 @@
+<p class="ngx-data-table__warning-block">
+    {{errorText}}<br>
+    <span *ngIf="actionableText" (click)="textClicked()">
+        {{actionableText}}
+    </span>
+</p>

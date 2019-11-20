@@ -1,0 +1,40 @@
+<div class="flex-container ngx-data-table__header"
+     fxLayout="row"
+     fxLayoutAlign="center center">
+    <div class="flex-item" [fxFlex]="getFlex()">
+        <mat-checkbox class="ngx-data-table__checkbox checkbox-header"
+                     *ngIf="showCheckboxes && rows && rows.length > 0"
+                     [checked]="isAllOnPageSelected()"
+                     (change)="selectAllClicked($event)">
+        </mat-checkbox>
+    </div>
+    <ng-container *ngFor="let col of columns">
+        <div class="flex-item"
+             [fxFlex]="col.size"
+             *ngIf="!col.hide"
+             (click)="changeSort(col)">
+            <span [ngClass]="{'ngx-data-table__header-title': !colIsNotSortable(col)}"
+                  fxLayout="row"
+                  fxLayoutAlign="start center">
+                <span>{{col.title}}</span>
+                <mat-icon [@arrowState]="getColState(col)"
+                         fxFlex="5"
+                         *ngIf="getColState(col) !== 'none'"
+                         class="ngx-data-table__arrow">
+                    arrow_downward
+                </mat-icon>
+            </span>
+        </div>
+    </ng-container>
+</div>
+<div class="flex-container ngx-data-table__select-all-message"
+     fxLayout="row" fxLayoutAlign="center center" *ngIf="canSelectAll && isAllOnPageSelected() && !isAllCustomersSelected()">
+    <span>All {{uniqueRowsOnPage.length}} current spotlight customers on this page are selected.</span>
+    <span class="ngx-data-table__select-all-message-clickable" (click)="selectAllCustomers(true)">
+        Click here to select all your {{allCustomerIds.length}} current spotlight customers
+    </span>
+</div>
+<div class="flex-container ngx-data-table__progress-bar" fxLayout="row">
+    <mat-progress-bar *ngIf="isLoading" color="accent" mode="indeterminate">
+    </mat-progress-bar>
+</div>
